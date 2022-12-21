@@ -4,7 +4,6 @@
   "description": "모빌리버스 코딩 테스트",
   "author": "kimroot",
   "dependencies": {
-    "@types/lodash": "^4.14.191",
     "date-fns-tz": "^1.3.7",
     "fp-ts": "^2.13.1",
     "jest": "^29.3.1",
@@ -13,6 +12,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.2.4",
+    "@types/lodash": "^4.14.191",
     "@types/node": "^18.11.17",
     "eslint": "^8.30.0",
     "prettier": "^2.8.1",
