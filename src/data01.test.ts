@@ -342,6 +342,7 @@ const expectData = [
 
 // 테스트가 통과되도록 transformData를 구현하세요.
 // 라이브러리는 자유롭게 설치 및 사용 가능
+// 가산점: 처리속도, 코드 가독성
 test("데이터 변환", () => {
   console.log("start");
 
