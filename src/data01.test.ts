@@ -1,4 +1,4 @@
-const dataTransformationDump = {
+const dataDump = {
   부과내역: [
     {
       전자납부번호: "1135024022000766863",
@@ -347,7 +347,7 @@ test("데이터 변환", () => {
 
   const transformData = (d) => d;
 
-  expect(transformData(dataTransformationDump.부과내역)).toEqual(expectData);
+  expect(transformData(dataDump.부과내역)).toEqual(expectData);
 
   console.log("end");
 });
