@@ -347,7 +347,7 @@ test("데이터 변환", () => {
 
   const transformData = (d) => d;
 
-  expect(transformData(dataDump.부과내역)).toEqual(expectData);
+  expect(transformData(dataDump)).toEqual(expectData);
 
   console.log("end");
 });
