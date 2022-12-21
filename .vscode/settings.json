@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "files.eol": "\n",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "prettier.configPath": ".prettierrc",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "jest.autoRun": "off"
+}
