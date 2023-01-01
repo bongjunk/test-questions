@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "모빌리버스 코딩 테스트",
   "author": "kimroot",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "date-fns-tz": "^1.3.7",
     "fp-ts": "^2.13.1",

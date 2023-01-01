@@ -1,3 +1,5 @@
+import { formatInTimeZone } from "date-fns-tz";
+
 const dataDump = {
   부과내역: [
     {
@@ -345,7 +347,70 @@ const expectData = [
 test("데이터 변환", () => {
   console.log("start");
 
-  const transformData = (d) => d;
+  const dateFormat = (date: Date | any) => {
+    return formatInTimeZone(
+      date.replace(/\./g, "-"),
+      "Asia/Seoul",
+      "yyyy-MM-dd HH:mm:ssXXX"
+    );
+  };
+
+  const transformData = (data: any) => {
+    console.log("data", data);
+    const dataObj = [];
+    const charge = data?.부과내역;
+    const chargeMap = charge.map((dp: any, idx: any) => {
+      const 전자납부번호 = dp?.전자납부번호;
+      const 부과연월일 = dp?.부과연월일;
+      const 납기일 = dp?.납기일;
+      const 단속차량 = dp?.부과대상 ? dp?.부과대상?.slice(0, 9) : "";
+      const 위반항목 = dp?.위반항목;
+      const 부과대상 = dp?.부과대상;
+      const 위반장소 =
+        위반항목?.search("위반장소:") > -1
+          ? 위반항목?.slice(
+              위반항목?.indexOf("/위반장소:") + 6,
+              위반항목?.lastIndexOf(" /위반일시")
+            )
+          : 부과대상?.search("위반장소:") > -1
+          ? 부과대상?.slice(
+              부과대상?.indexOf("/위반장소:") + 6,
+              부과대상?.lastIndexOf(" /위반일시")
+            )
+          : "";
+      const 위반일시 =
+        위반항목?.search("위반일시:") > 1
+          ? 위반항목?.substr(위반항목?.lastIndexOf("/위반일시:") + 6)
+          : 부과대상?.search("위반일시:") > 1
+          ? 부과대상?.substr(부과대상?.lastIndexOf("/위반일시:") + 6)
+          : "";
+      const 상세내역 = dp?.상세내역;
+      const 납부금액 = 상세내역?.find((data: any, idx: any) => {
+        if (data?.과목 === "합계") {
+          return data;
+        }
+      });
+      const 총남부금액 = Number(납부금액?.납부금액);
+
+      dataObj.push({
+        전자납부번호: 전자납부번호,
+        부과연월일: 부과연월일 && dateFormat(부과연월일),
+        납기일: 납기일 && dateFormat(납기일),
+        단속차량: 단속차량 && 단속차량.trim(),
+        위반장소: 위반장소,
+        위반일시: 위반일시 && dateFormat(위반일시),
+        총납부금액: 총남부금액,
+      });
+    });
+
+    dataObj.filter((obj: any, idx: any) => {
+      Object.keys(obj).forEach((key) => obj[key] == "" && delete obj[key]);
+    });
+
+    return dataObj;
+  };
+
+  transformData(dataDump);
 
   expect(transformData(dataDump)).toEqual(expectData);
 
